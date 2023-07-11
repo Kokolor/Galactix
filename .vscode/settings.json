@@ -1,6 +1,12 @@
 {
     "files.associations": {
         "unistd.h": "c",
-        "types.h": "c"
+        "types.h": "c",
+        "fb.h": "c",
+        "shell.h": "c",
+        "fcntl.h": "c",
+        "stdlib.h": "c",
+        "errno.h": "c",
+        "framebuffer.h": "c"
     }
 }
