@@ -1,6 +1,12 @@
 #!/bin/bash
 
-gcc -static -o init source/init.c
+gcc -static -o init source/init.c source/shell/shell.c
+gcc -static -o ls source/commands/ls.c
+cd source/applications/
+bash build.sh
+cd ../../
+mv ls linux/bin/
+
 mkdir -p initramfs/
 cp -r linux/* initramfs/
 cp init initramfs/init

@@ -1,16 +1,14 @@
-#include <dirent.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <dirent.h>
+#include <sys/wait.h>
+#include "shell/shell.h"
 
-int main(void) {
-    DIR *d;
-    struct dirent *dir;
-    d = opendir(".");
-    if (d) {
-        while ((dir = readdir(d)) != NULL) {
-            printf("%s\n", dir->d_name);
-        }
-        closedir(d);
-    }
-    
+int main()
+{
+    init_shell();
+
     while(1);
 }
