@@ -5,8 +5,13 @@ gcc -o a.out source/init.c
 ldd a.out
 
 mkdir -p initramfs/{dev,lib64,/lib/x86_64-linux-gnu}
+cd source/framebuffer/
+./build.sh
+cd ../../
+cp source/framebuffer/libfb.so linux/lib/x86_64-linux-gnu/
 cp -r linux/* initramfs/
 cp a.out initramfs/init
+gcc -Llinux/lib/x86_64-linux-gnu/ -Isource/framebuffer/ -o linux/bin/graphics source/apps/graphics.c -lfb
 
 sudo mknod -m 600 initramfs/dev/console c 5 1
 sudo mknod -m 666 initramfs/dev/null c 1 3
