@@ -7,6 +7,7 @@
         "fcntl.h": "c",
         "stdlib.h": "c",
         "errno.h": "c",
-        "framebuffer.h": "c"
+        "framebuffer.h": "c",
+        "wait.h": "c"
     }
 }

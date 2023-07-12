@@ -1,15 +1,12 @@
 #!/bin/bash
 
-gcc -static -o init source/init.c source/shell/shell.c source/framebuffer/framebuffer.c
-gcc -static -o ls source/commands/ls.c
-cd source/applications/
-bash build.sh
-cd ../../
-mv ls linux/bin/
+gcc -o a.out source/init.c
 
-mkdir -p initramfs/dev
+ldd a.out
+
+mkdir -p initramfs/{dev,lib64,/lib/x86_64-linux-gnu}
 cp -r linux/* initramfs/
-cp init initramfs/init
+cp a.out initramfs/init
 
 sudo mknod -m 600 initramfs/dev/console c 5 1
 sudo mknod -m 666 initramfs/dev/null c 1 3
@@ -37,6 +34,6 @@ qemu-system-x86_64 -cdrom galactix.iso -m 4096M -enable-kvm -vga virtio
 
 rm initramfs.img
 rm -rf initramfs
-rm init
+rm a.out
 rm -r cdrom/
 rm galactix.iso
