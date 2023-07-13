@@ -1,6 +1,6 @@
 #!/bin/bash
 
-gcc -o a.out source/init.c
+gcc -Llinux/lib/x86_64-linux-gnu/ -Isource/framebuffer/ -o a.out source/init.c -lfb
 
 ldd a.out
 
@@ -9,9 +9,9 @@ cd source/framebuffer/
 ./build.sh
 cd ../../
 cp source/framebuffer/libfb.so linux/lib/x86_64-linux-gnu/
+gcc -Llinux/lib/x86_64-linux-gnu/ -Isource/framebuffer/ -o linux/bin/graphics source/apps/graphics.c -lfb
 cp -r linux/* initramfs/
 cp a.out initramfs/init
-gcc -Llinux/lib/x86_64-linux-gnu/ -Isource/framebuffer/ -o linux/bin/graphics source/apps/graphics.c -lfb
 
 sudo mknod -m 600 initramfs/dev/console c 5 1
 sudo mknod -m 666 initramfs/dev/null c 1 3
@@ -30,7 +30,7 @@ echo 'set timeout=30
 set default=0
 
 menuentry "Galactix" {
-   linux /boot/bzImage ro quiet
+   linux /boot/bzImage ro
    initrd /boot/initramfs.img
 }' > cdrom/boot/grub/grub.cfg
 

@@ -9,11 +9,18 @@ int main()
         return 1;
     }
 
-    for (int x = 100; x < 200; x++)
+    int resolution_x = 800;
+    int resolution_y = 600;
+
+    for (int x = 0; x < resolution_x; x++)
     {
-        for (int y = 100; y < 200; y++)
+        for (int y = 0; y < resolution_y; y++)
         {
-            draw_pixel(x, y, 0x00FF00);
+            int red = (255 * (resolution_x - x)) / resolution_x;
+            int blue = (255 * y) / resolution_y;
+            int color = (red << 16) | blue;
+
+            draw_pixel(x, y, color);
         }
     }
 

@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <sys/wait.h>
+#include "framebuffer/framebuffer.h"
 
 #define MAX_ARGS 64
 
@@ -36,6 +37,11 @@ int main()
     setenv("PATH", "/bin", 1);
     setenv("PS1", "\\[\e[32m\\]Galactix \\W \\$ \\[\e[0m\\]", 1);
     setenv("TERM", "vt100", 1);
+    if (open_framebuffer() == -1)
+    {
+        printf("Failed to open framebuffer.\n");
+        return 1;
+    }
     execute("/bin/bash");
 
     return 0;
